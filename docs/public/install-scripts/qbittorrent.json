@@ -6,9 +6,9 @@
   },
   "requirements": {
     "locations": ["ApplicationsPerformance", "ApplicationsCapacity", "Downloads"],
-    "specifications": ["2CORE", "200MB"],
+    "specifications": ["2CORE", "256MB"],
     "permissions": ["READ_WRITE_LOCATIONS"],
-    "ports": [8080, 6881]
+    "ports": [30024, 51413]
   },
   "ensure_directories_exists": [
     {
@@ -32,6 +32,22 @@
       "additional_storage": [
         "$MOUNTED_HOST_PATH($LOCATION(Downloads)/qbittorrent, /config/Downloads)"
       ]
+    },
+    "network": {
+      "web_port": {
+        "bind_mode": "published",
+        "port_number": 30024
+      },
+      "bt_port": {
+        "bind_mode": "published",
+        "port_number": 51413
+      }
+    },
+      "resources": {
+      "limits": {
+        "cpus": 2,
+        "memory": "$MEMORY(10%, 2048)"
+      }
     }
   }
 }
